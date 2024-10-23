@@ -2,13 +2,13 @@ import React from 'react'
 import { BACKGROUND_IMAGE } from '../utils/constants'
 const DealCard = () => {
   return (
-    <div>
+    <div className='relative'>
       <img
           className="w-full h-screen bg-cover bg-center bg-no-repeat"
           src={BACKGROUND_IMAGE}
           alt="bg-image"
         />
-        <div className="flex flex-col absolute inset-0 mt-24  items-center justify-center text-white bg-black bg-opacity-20 ">
+        <div className="flex flex-col absolute inset-0 items-center justify-center text-white bg-black bg-opacity-20 ">
           <h1 className="mx-16 text-6xl font-extrabold text-white">
             The best flight offers from anywhere, to everywhere
           </h1>

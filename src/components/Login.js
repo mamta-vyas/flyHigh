@@ -1,6 +1,11 @@
 import React, { useRef, useState } from "react";
 import { checkValidData } from "../utils/validate";
 import { BACKGROUND_IMAGE } from "../utils/constants";
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {auth} from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -9,6 +14,8 @@ const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
   const name = useRef(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleButtonClick = (e) => {
     e.preventDefault(); // Prevent the default form submission
@@ -18,19 +25,75 @@ const Login = () => {
       password.current.value,
       isSignIn ? null : name.current.value, // Pass name only if not signing in
       isSignIn
-    );
+    )
+         setErrorMessage(message);
 
-    if (message) {
-      setErrorMessage(message);
-    } else {
-      // Form is valid, proceed with your submission logic
-      console.log("Form submitted successfully");
-      console.log(email.current.value);
-      console.log(password.current.value);
-      // Placeholder for your submission logic
-      setErrorMessage(null); // Clear error message
-    }
-  };
+         if(message) return;
+
+        //  sign up logic
+
+if(!isSignIn){
+         
+createUserWithEmailAndPassword(auth,  
+  email.current.value , 
+  password.current.value, )
+  .then((userCredential) => {
+    // Signed up 
+    const user = userCredential.user;
+      console.log(user);
+      updateProfile(user, {
+        displayName: name.current.value, 
+        photoURL: "https://avatars.githubusercontent.com/u/112095415?v=4"
+      })
+      
+      .then(() => {
+        // Profile updated!
+        const {uid, email, displayName , photoURL } = auth.currentUser;
+        dispatch(
+          addUser({
+          uid: uid, 
+          email: email , 
+          displayName: displayName, 
+          photoURL: photoURL
+        })
+      );
+      navigate("/");
+  })
+  .catch((error) => {
+    setErrorMessage(error.message )
+    // ..
+  });
+})
+
+.catch((error) => {
+  const errorCode = error.code;
+  const errorMessage = error.message;
+  setErrorMessage(errorCode+ " - " + errorMessage);
+});
+}
+else
+{
+// Sign In logic
+signInWithEmailAndPassword(auth,  
+  email.current.value,
+  password.current.value,)
+.then((userCredential) => {
+  // Signed in 
+  const user = userCredential.user;
+  console.log(user);
+   })
+
+.catch((error) => {
+    // An error occurred
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    setErrorMessage(errorCode+" - "+errorMessage)
+  });
+  // ...
+}
+};
+  
+  
 
   const handleSignIn = () => {
     setIsSignIn(!isSignIn);
@@ -75,7 +138,9 @@ const Login = () => {
           type="password"
           placeholder="Password"
           className="bg-gray-500 p-2 my-4 w-full text-lg rounded-lg"
-          required // Make it required
+          required 
+          autoComplete="current-password"
+          // Make it required
         />
         <p className="text-red-500">{errorMessage}</p>
 

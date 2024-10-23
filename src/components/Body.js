@@ -2,7 +2,7 @@ import React from "react";
 import DealCard from "./DealCard";
 import DestinationCard from "./DestinationCard";
 import dataObj from "../utils/mockData";
-import Footer from "./Footer";
+
 
 
 
@@ -10,7 +10,7 @@ const Body = () => {
   return (
   
     <div>
-      <div className="min-h-screen w-full ralative">
+      <div className="min-h-screen w-full relative">
        <DealCard/> 
     <div className="flex flex-wrap">
       {/* don't use index as keys it has to be unique 
@@ -25,7 +25,7 @@ const Body = () => {
       
   </div>
  
-  <Footer />
+
   </div>
 );
 };
