@@ -56,7 +56,7 @@ const Header = () => {
 
   return (
     <div className="relative bg-cyan-900 w-full h-30 flex flex-col z-50">
-      <div className="my-4 mx-8 flex justify-between">
+      <div className="my-2 mx-8 flex justify-between">
         <img
           className="w-[80px] h-[40px] rounded-xl mx-4"
           src={FLYHIGH_LOGO}
@@ -72,7 +72,7 @@ const Header = () => {
        
           <button 
           onClick={handleSignOut}
-          className="my-2 font-bold text-white bg-red-500">
+          className="my-2 p-2 font-bold text-white bg-red-500 rounded-xl">
             Sign Out
           </button>
         </div>}
