@@ -1,4 +1,5 @@
-const hotels = [
+const hotels = 
+[
     { id: 1, name: "Hotel Taj Mahal", location: "Agra, Uttar Pradesh", price: 250, availability: true, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYBtrbqn8vrnp4KHqX-svewpON50w8clKJFQ&s" },
     { id: 2, name: "The Oberoi", location: "Mumbai, Maharashtra", price: 400, availability: true, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFN_3pZRRxAduT6ieX9u8Ja6IWpEnOvJlDtQ&s" },
     { id: 3, name: "Radisson Blu", location: "Delhi", price: 200, availability: true, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1R4avNai45OP21xxiuQlJNndDhfqPzHFf1g&s" },
